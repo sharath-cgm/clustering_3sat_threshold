@@ -1,5 +1,7 @@
 
 import numpy as np
+from sklearn.decomposition import PCA
+import math
 
 #Variables - Clustering
 N = 60   #edges = n*dl = m*dr = N
@@ -46,6 +48,11 @@ data = np.append(left_deg,[col],axis=0)
 filename = "dataset"
 np.savetxt(filename + ".txt", data, fmt = '%u', delimiter=" ")
 
- 
 
+##### Dimensionality reduction
+PCA_dim = 20
+reduced_data = PCA(n_components= PCA_dim).fit_transform(data[:, 0:-1])
+
+filename = "reduced_dataset"
+np.savetxt(filename + ".txt", np.concatenate((reduced_data, (data[:, -1]).reshape(-1, 1)), axis = 1), delimiter=" ")
 
